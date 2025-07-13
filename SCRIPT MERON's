@@ -1,0 +1,101 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("MERON?", "Sentinel")
+
+local Tab = Window:NewTab("SCRIPTs")
+
+local Section = Tab:NewSection("SCRIPTs")
+
+Section:NewLabel("BOOST")
+
+Section:NewButton("BOOST", "PLAYER BOOST", function()
+   -- Create a ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "SpeedGUI"
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Create a Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0, 10, 0.5, -50) -- Modified position to display on the left side
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Parent = gui
+
+-- Create a TextBox
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0, 150, 0, 30)
+textBox.Position = UDim2.new(0.5, -75, 0.2, 0)
+textBox.Text = "Speed Amount"
+textBox.Parent = frame
+
+-- Create a TextLabel
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0, 150, 0, 30)
+label.Position = UDim2.new(0.5, -75, 0.4, 0)
+label.Text = "Enter a speed value"
+label.Parent = frame
+
+-- Create a TextButton
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 100, 0, 30)
+button.Position = UDim2.new(0.5, -50, 0.7, 0)
+button.Text = "Go"
+button.Parent = frame
+
+-- Function to update walk speed
+local function updateWalkSpeed()
+    local speedValue = tonumber(textBox.Text)
+    if speedValue then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speedValue
+    end
+end
+
+-- Bind the button click event
+button.MouseButton1Click:Connect(updateWalkSpeed)
+end)
+
+
+Section:NewButton("BOOST J", "JUMP BOOST", function()
+    -- Create a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "JumpGui"
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Create a Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.Parent = screenGui
+
+-- Create a TextLabel
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 0.5, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.Text = "Click Continue to Increase Jump Height!"
+textLabel.TextColor3 = Color3.new(0, 0, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Parent = frame
+
+-- Create a Button
+local continueButton = Instance.new("TextButton")
+continueButton.Size = UDim2.new(0, 100, 0, 30)
+continueButton.Position = UDim2.new(0.25, 0, 0.5, 0)
+continueButton.Text = "Continue"
+continueButton.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+continueButton.Parent = frame
+
+-- Function to increase jump height
+local function increaseJumpHeight()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character:FindFirstChild("Humanoid")
+        humanoid.JumpPower = humanoid.JumpPower + 50  -- Increase jump height by 50
+    end
+end
+
+-- Connect the button click event to the function
+continueButton.MouseButton1Click:Connect(increaseJumpHeight)
+end)
