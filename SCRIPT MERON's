@@ -99,3 +99,66 @@ end
 -- Connect the button click event to the function
 continueButton.MouseButton1Click:Connect(increaseJumpHeight)
 end)
+
+
+Section:NewButton("MORE HEALTH", "PLUS 300 HP", function()
+    -- Create the ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "HealthGUI"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create the Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.Parent = screenGui
+
+-- Create the TextButton
+local continueButton = Instance.new("TextButton")
+continueButton.Size = UDim2.new(1, 0, 0.5, 0)
+continueButton.Position = UDim2.new(0, 0.5, 1, 0)
+continueButton.Text = "Continue"
+continueButton.BackgroundColor3 = Color3.new(0, 1, 0)
+continueButton.Parent = frame
+
+-- Script to handle button click
+continueButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+
+    humanoid.Health = math.min(humanoid.MaxHealth, humanoid.Health + 300)
+end)
+end)
+
+
+Section:NewButton("1 METER", "TP YOU BUT 1 METER", function()
+    -- Create the ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TeleportGUI"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create the Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.3, 0, 1, 0)
+frame.BackgroundColor3 = Color3.new(1, 1, 0.3, 0)
+continueButton.Position = UDim2.new(0, 2, 0.10, 0)
+continueButton.Text = "Continue"
+continueButton.BackgroundColor3 = Color3.new(0, 1, 0)
+continueButton.Parent = frame
+
+-- Script to handle button click
+continueButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    local currentPosition = humanoidRootPart.Position
+    local forwardVector = humanoidRootPart.CFrame.LookVector
+    local newPosition = currentPosition + forwardVector * 4
+
+    humanoidRootPart.CFrame = CFrame.new(newPosition)
+end)
+end)
